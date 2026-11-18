@@ -13,6 +13,25 @@
 
 </div>
 
+> [!IMPORTANT]
+> ## 本仓库是隐私加固分支
+>
+> 这是 [freeok/so-novel](https://github.com/freeok/so-novel) 的个人 fork，基于上游 `v1.12.0`。
+>
+> **与上游的唯一功能差异：已移除启动时的设备信息上报。**
+>
+> 上游原版每次启动都会向作者服务器发送一份包含**本机用户名、计算机名、MAC 地址、
+> 内网 IP、系统版本**的 JSON，且 `config.ini` 中没有任何开关可以关闭。
+> 本分支删除了该上报的实现类与调用点，代码中不再包含任何相关逻辑。
+>
+> 相关源码改动：
+> - 删除 `src/main/java/com/pcdd/sonovel/repository/ClientReportRepository.java`
+> - 删除 `src/main/java/com/pcdd/sonovel/model/ClientReport.java`
+> - `Main.java` 移除 `new Thread(ClientReportRepository::report).start();`
+>
+> 除此之外的行为、界面、书源规则均与上游一致。
+> 上游更新请从 [upstream](https://github.com/freeok/so-novel) 同步后重新应用以上改动。
+
 ## 概述
 
 **So Novel** 是一款通用的网页内容处理与导出工具，它致力于帮助用户高效地从网页中提取结构化信息，并将其灵活导出为
