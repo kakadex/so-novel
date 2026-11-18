@@ -15,7 +15,6 @@ import com.pcdd.sonovel.core.AppConfigLoader;
 import com.pcdd.sonovel.launcher.CliLauncher;
 import com.pcdd.sonovel.launcher.TuiLauncher;
 import com.pcdd.sonovel.model.AppConfig;
-import com.pcdd.sonovel.repository.ClientReportRepository;
 import com.pcdd.sonovel.utils.EnvUtils;
 import com.pcdd.sonovel.web.WebServer;
 import org.fusesource.jansi.AnsiConsole;
@@ -65,7 +64,9 @@ public class Main {
         AppConfig cfg = AppConfigLoader.APP_CONFIG;
         HttpClientContext.set(OkHttpClientFactory.create(cfg));
 
-        new Thread(ClientReportRepository::report).start();
+        // [隐私改动] 原版此处会开线程上报 用户名/计算机名/MAC/内网IP，
+        // 目标地址 https://sonovel-d1.hello-pcdd.workers.dev/report
+        // 本分支已整体移除该上报调用，ClientReportRepository 类亦已删除。
         if (cfg.getAutoUpdate() == 1) {
             new CheckUpdateAction(5000).execute();
         }
